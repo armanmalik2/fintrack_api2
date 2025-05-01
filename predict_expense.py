@@ -21,4 +21,4 @@ print(run)
 
 import joblib
 
-joblib.dump((model), 'expenses_ai.joblib')
+joblib.dump((model), 'expenses.joblib')
