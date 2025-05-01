@@ -29,4 +29,4 @@ class PredictionInput(BaseModel):
 def predict(data: PredictionInput):
     features = np.array([[data.year, data.month, data.salary]])
     prediction = model.predict(features)
-    return {"predicted_expenses": float(prediction[0])}
+    return {"category": float(prediction[0])}
