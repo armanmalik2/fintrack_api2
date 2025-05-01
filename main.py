@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 # Load your trained model
-model, scaler = joblib.load('expenses_ai.joblib')
+model, scaler = joblib.load('expenses.joblib')
 
 
 app = FastAPI()
