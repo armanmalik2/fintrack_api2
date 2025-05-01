@@ -5,6 +5,11 @@ import joblib
 import numpy as np
 from fastapi.middleware.cors import CORSMiddleware
 
+
+# Load your trained model
+model, scaler = joblib.load('expenses_ai.joblib')
+
+
 app = FastAPI()
 
 # Enable CORS
@@ -16,8 +21,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load your trained model
-model = joblib.load('expenses_ai.joblib')
 
 # Define the input schema
 class PredictionInput(BaseModel):
@@ -28,5 +31,6 @@ class PredictionInput(BaseModel):
 @app.post("/predict")
 def predict(data: PredictionInput):
     features = np.array([[data.year, data.month, data.salary]])
-    prediction = model.predict(features)
-    return {"category": float(prediction[0])}
+    scaled_features = scaler.transform(features)
+    prediction = model.predict(scaled_features)
+    return {"predicted_expenses": float(prediction[0])}
